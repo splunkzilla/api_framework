@@ -10,6 +10,7 @@ import ConfigParser
 import cherrypy, threading
 import requests, urllib
 import json
+import ast
 
 # Setup Splunk Environment
 APPNAME = '<APPNAME>'
@@ -49,7 +50,7 @@ class APIFramework():
 
     # Decide which information the API should have access to.
     # Enter scopes as strings with commas in between
-    API_SCOPES = parser.get('AppServer', 'SCOPES')
+    API_SCOPES = ast.literal_eval(parser.get('AppServer', 'SCOPES'))
 
     # These settings should probably not be changed.
     API_SERVER = parser.get('AppServer', 'API_SERVER')
