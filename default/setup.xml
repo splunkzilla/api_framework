@@ -1,0 +1,28 @@
+<setup>
+  <block title="Configure Your OAuth2 Credentials">
+    <text>Enter your OAuth2 credentials provided by your App at https://dev.<APPNAME>.com. These credentials
+        must exactly match your <APPNAME> App's information to include trailing slashes on your Redirect URI path.
+        Additional advanced configuration information can be found at $SPLUNK_HOME/etc/apps/<APPNAME>/default/appconfig.conf.</text>
+  </block>
+
+  <block title="<APPNAME> Client Key and Secret Key"
+         endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+
+      <input field="C_KEY">
+        <label>OAuth 2.0 Client ID:</label>
+        <type>text</type>
+      </input>
+
+      <input field="C_SECRET" endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+        <label>Client (Consumer) Secret:</label>
+        <type>text</type>
+      </input>
+
+      <input field="REDIRECT_URI" endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+        <label>Callback URI (http://127.0.0.1:8080):</label>
+        <type>text</type>
+      </input>
+
+  </block>
+
+</setup>
