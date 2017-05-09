@@ -72,29 +72,29 @@ for filename in paths:
 config_api = user_yes_no_query('\nDo you want to configure the API now?')
 
 if config_api == True:
-    API_SERVER =  raw_input("\nEnter the name of the API server without the https://\n(example: api.myapp.com): ")
-    WWW_SERVER = raw_input("\nEnter the name of the WWW server without the https://\n(example: www.myapp.com): ")
-    AUTHORIZE_URL = raw_input("\nEnter the name of the Authorization URL with slashes[/]\n(example: /oauth2/authorize): ")
-    TOKEN_URL = raw_input("\nEnter the name of the Token URL with slashes[/]\n(example: /oauth2/token): ")
-    SCOPES = raw_input("\nEnter the name of the Available Scopes with comma between\n(example: 'profile','activity': ")
-    SAMPLE_CALL = raw_input("\nEnter a sample API call for testing\n(example: /1/user/-/profile.json: ")
-    C_KEY = raw_input("\nEnter your Client Key\n(example: 12353465754 ")
-    C_SECRET = raw_input("\nEnter your Client Secret Key\n(example: 12353465754339423423= ")
-    REDIRECT_URI = raw_input("\nEnter your Call Back or Redirect URL and port\n(example: 127.0.0.1:8000 ")
+    API_SERVER =  raw_input("\nEnter the name of the API server without the https://\n[example: api.myapp.com]: ")
+    WWW_SERVER = raw_input("\nEnter the name of the WWW server without the https://\n[example: www.myapp.com]: ")
+    AUTHORIZE_URL = raw_input("\nEnter the name of the Authorization URL with slashes[/]\n[example: /oauth2/authorize]: ")
+    TOKEN_URL = raw_input("\nEnter the name of the Token URL with slashes[/]\n[example: /oauth2/token]: ")
+    SCOPES = raw_input("\nEnter the name of the Available Scopes with comma between\n[example: 'profile','activity']: ")
+    SAMPLE_CALL = raw_input("\nEnter a sample API call for testing\n[example: /1/user/-/profile.json]: ")
+    C_KEY = raw_input("\nEnter your Client Key\n[example: 12353465754]: ")
+    C_SECRET = raw_input("\nEnter your Client Secret Key\n[example: 1sad46575433sdas23423]: ")
+    REDIRECT_URI = raw_input("\nEnter your Call Back or Redirect URL and port\n[example: http://127.0.0.1:8080]: ")
 
     configs = [API_SERVER, WWW_SERVER, AUTHORIZE_URL, TOKEN_URL, SAMPLE_CALL]
 
     make_change = user_yes_no_query('\nAre you sure you want to write these changes?')
     if make_change == True:
-        inplace_change('default/appconfig.conf', 'API_SERVER =', "API_SERVER = '%s'" % API_SERVER)
-        inplace_change('default/appconfig.conf', 'WWW_SERVER =', "WWW_SERVER = '%s'" % WWW_SERVER)
-        inplace_change('default/appconfig.conf', 'AUTHORIZE_URL =', "AUTHORIZE_URL = '%s'" % AUTHORIZE_URL)
-        inplace_change('default/appconfig.conf', 'TOKEN_URL =', "TOKEN_URL = '%s'" % TOKEN_URL)
+        inplace_change('default/appconfig.conf', 'API_SERVER =', "API_SERVER = %s" % API_SERVER)
+        inplace_change('default/appconfig.conf', 'WWW_SERVER =', "WWW_SERVER = %s" % WWW_SERVER)
+        inplace_change('default/appconfig.conf', 'AUTHORIZE_URL =', "AUTHORIZE_URL = %s" % AUTHORIZE_URL)
+        inplace_change('default/appconfig.conf', 'TOKEN_URL =', "TOKEN_URL = %s" % TOKEN_URL)
         inplace_change('default/appconfig.conf', 'SCOPES =', "SCOPES = (%s)" % SCOPES)
-        inplace_change('default/appconfig.conf', 'SAMPLE_CALL =', "SAMPLE_CALL = '%s'" % SAMPLE_CALL)
-        inplace_change('default/appconfig.conf', 'C_KEY =', "C_KEY = '%s'" % C_KEY)
-        inplace_change('default/appconfig.conf', 'C_SECRET =', "C_SECRET = '%s'" % C_SECRET)
-        inplace_change('default/appconfig.conf', 'REDIRECT_URI =', "REDIRECT_URI = '%s'" % REDIRECT_URI)
+        inplace_change('default/appconfig.conf', 'SAMPLE_CALL =', "SAMPLE_CALL = %s" % SAMPLE_CALL)
+        inplace_change('default/appconfig.conf', 'C_KEY =', "C_KEY = %s" % C_KEY)
+        inplace_change('default/appconfig.conf', 'C_SECRET =', "C_SECRET = %s" % C_SECRET)
+        inplace_change('default/appconfig.conf', 'REDIRECT_URI =', "REDIRECT_URI = %s" % REDIRECT_URI)
 
         print '\nAll Complete!'
 
