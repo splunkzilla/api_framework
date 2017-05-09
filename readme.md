@@ -4,8 +4,10 @@
 
 **Author:** Justin Boucher.
 
-*__NOTE:__ Uses customized version of OAuth Scripting, and does not use the python OAuth generator to reduce space in memory*
+*__NOTE:__ Uses customized version of OAuth Scripting, and does not use the python OAuth generator to reduce number of dependencies*
 
 ## Installation Instructions
 
 ### Preparation
+
+*TODO: Write this README!*
