@@ -10,7 +10,6 @@ import ConfigParser
 import cherrypy, threading
 import requests, urllib
 import json
-import ast
 
 # Setup Splunk Environment
 APPNAME = '<APPNAME>'
@@ -49,8 +48,9 @@ class APIFramework():
     REDIRECT_URI  = parser.get('Authentication', 'REDIRECT_URI')
 
     # Decide which information the API should have access to.
-    # Enter scopes as strings with commas in between
-    API_SCOPES = ast.literal_eval(parser.get('AppServer', 'SCOPES'))
+    # Enter scopes as tuple with commas in between
+    SCOPES = parser.get('AppServer', 'SCOPES')
+    API_SCOPES = tuple(SCOPES.split(','))
 
     # These settings should probably not be changed.
     API_SERVER = parser.get('AppServer', 'API_SERVER')
