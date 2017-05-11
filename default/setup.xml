@@ -1,28 +1,58 @@
 <setup>
   <block title="Configure Your OAuth2 Credentials">
-    <text>Enter your OAuth2 credentials provided by your App at https://dev.<APPNAME>.com. These credentials
-        must exactly match your <APPNAME> App's information to include trailing slashes on your Redirect URI path.
-        Additional advanced configuration information can be found at $SPLUNK_HOME/etc/apps/<APPNAME>/default/appconfig.conf.</text>
+    <text>Enter your OAuth2 credentials provided by your App at https://dev.test_app.com. These credentials
+        must exactly match your test_app App's information to include trailing slashes on your Redirect URI path.
+        Additional advanced configuration information can be found at $SPLUNK_HOME/etc/apps/test_app/default/appconfig.conf.</text>
   </block>
 
-  <block title="<APPNAME> Client Key and Secret Key"
-         endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+  <block title="test_app Client Key and Secret Key"
+         endpoint="test_app/test_appsetup" entity="AppConfigs">
 
       <input field="C_KEY">
         <label>OAuth 2.0 Client ID:</label>
         <type>text</type>
       </input>
 
-      <input field="C_SECRET" endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+      <input field="C_SECRET" endpoint="test_app/test_appsetup" entity="AppConfigs">
         <label>Client (Consumer) Secret:</label>
         <type>text</type>
       </input>
 
-      <input field="REDIRECT_URI" endpoint="<APPNAME>/<APPNAME>setup" entity="Authentication">
+      <input field="REDIRECT_URI" endpoint="test_app/test_appsetup" entity="AppConfigs">
         <label>Callback URI (http://127.0.0.1:8080):</label>
         <type>text</type>
       </input>
 
   </block>
+
+    <block title="test_app API Server Configuration"
+           endpoint="test_app/test_appsetup" entity="AppConfigs">
+
+        <input field="API_SERVER">
+            <label>API Server:</label>
+            <type>text</type>
+        </input>
+
+        <input field="AUTHORIZE_URL" endpoint="test_app/test_appsetup" entity="AppConfigs">
+            <label>Authorize URL:</label>
+            <type>text</type>
+        </input>
+
+        <input field="TOKEN_URL" endpoint="test_app/test_appsetup" entity="AppConfigs">
+            <label>Token URL:</label>
+            <type>text</type>
+        </input>
+
+        <input field="SCOPES" endpoint="test_app/test_appsetup" entity="AppConfigs">
+            <label>Scopes (Comma separated):</label>
+            <type>text</type>
+        </input>
+
+        <input field="SAMPLE_CALL" endpoint="test_app/test_appsetup" entity="AppConfigs">
+            <label>Sample Call for testing:</label>
+            <type>text</type>
+        </input>
+
+    </block>
 
 </setup>

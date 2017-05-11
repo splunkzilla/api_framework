@@ -17,7 +17,7 @@ class ConfigApp(admin.MConfigHandler):
   '''
   def setup(self):
     if self.requestedAction == admin.ACTION_EDIT:
-      for arg in ['C_KEY', 'C_SECRET', 'REDIRECT_URI', 'DATE_INTERVAL', 'TIME_INTERVAL', 'TIME_DELAY']:
+      for arg in ['C_KEY', 'C_SECRET', 'REDIRECT_URI', 'API_SERVER', 'AUTHORIZATION_URL', 'TOKEN,URL', 'SCOPES', 'SAMPLE_CALL', 'DATE_INTERVAL', 'TIME_INTERVAL', 'TIME_DELAY']:
         self.supportedArgs.addOptArg(arg)
 
   '''
@@ -67,8 +67,7 @@ write them to the [setupentity] stanza
     in <APPNAME>/local/myappsetup.conf
     '''
 
-    self.writeConf('appconfig', 'Authentication', self.callerArgs.data)
-    self.writeConf('appconfig', 'Activity', self.callerArgs.data)
+    self.writeConf('appconfig', 'AppConfigs', self.callerArgs.data)
 
 # initialize the handler
 admin.init(ConfigApp, admin.CONTEXT_NONE)
