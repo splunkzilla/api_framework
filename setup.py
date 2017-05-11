@@ -1,14 +1,15 @@
 import sys
-from distutils import spawn
 from os import walk, path, system
 from distutils.util import strtobool
-
-
-def is_tool(name):
-    return spawn.find_executable(name) is not None
+import site
 
 
 def user_yes_no_query(question):
+    '''
+    Asks yes or no question and returns True or False
+    :param question:
+    :return: True/False
+    '''
     sys.stdout.write('%s [y/n]\n' % question)
     while True:
         try:
@@ -18,6 +19,16 @@ def user_yes_no_query(question):
 
 
 def inplace_change(filename, old_string, new_string):
+    '''
+    Takes filename object, the current string and the string
+    to replace. Does this inline so the file doesn't have to
+    be opened twice.
+
+    :param filename:
+    :param old_string:
+    :param new_string:
+    :return: none
+    '''
     # Safely read the input filename using 'with'
     with open(filename) as f:
         s = f.read()
@@ -33,12 +44,15 @@ def inplace_change(filename, old_string, new_string):
 
 
 def get_filepaths(directory):
-    """
+    '''
     This function will generate the file names in a directory
     tree by walking the tree either top-down or bottom-up. For each
     directory in the tree rooted at directory top (including top itself),
     it yields a 3-tuple (dirpath, dirnames, filenames).
-    """
+
+    :param directory:
+    :return:
+    '''
     file_paths = []  # List which will store all of the full filepaths.
 
     # Walk the tree.
@@ -50,24 +64,52 @@ def get_filepaths(directory):
 
     return file_paths
 
-print 'Checking Pre-Requisites...'
-check_prereq = is_tool('pip')
-if check_prereq == True:
-    print 'Pre-Requisites installed'
-    print 'Installing modules...'
-    system('pip install -r requirements.txt > /dev/null')
-    print 'Modules installed\n'
-else:
-    print 'Please follow the pip install guide from https://pip.pypa.io/en/stable/installing/ before continuing'
-    sys.exit()
+'''
+This app requires two python modules that don't come standard
+in Splunk. THese modules are requests and cherrypy. The app will
+attempt to install pip to assist in the installation of these modules.
+'''
+print 'Checking for Prereqs...'
 
+try:
+    import pip
+except ImportError:
+    print "installing pip"
+    cmd = "sudo easy_install pip"
+    system(cmd)
+    reload(site)
+
+try:
+    import requests
+except ImportError:
+    print "no lib requests"
+    import pip
+    cmd = "pip install requests"
+    print "Requests package is missing\nInstalling now..."
+    system(cmd)
+    reload(site)
+
+try:
+    import cherrypy
+except ImportError:
+    print "no lib requests"
+    import pip
+
+    cmd = "pip install cherrypy"
+    print "cherrypy package is missing\nInstalling now..."
+    system(cmd)
+    reload(site)
+
+print '\nAll modules installed!\n'
+
+# Change app_name in all files to the current app_name
 APP_NAME = raw_input("Enter the name of the app as it will\nappear in the /etc/apps directory: ")
 print 'Making app changes\n'
 
 paths = get_filepaths('.')
 
 for filename in paths:
-    inplace_change(filename, '<APPNAME>', APP_NAME)
+    inplace_change(filename, 'test_app', APP_NAME)
 
 config_api = user_yes_no_query('\nDo you want to configure the API now?')
 
@@ -82,15 +124,14 @@ if config_api == True:
     C_SECRET = raw_input("\nEnter your Client Secret Key\n[example: 1sad46575433sdas23423]: ")
     REDIRECT_URI = raw_input("\nEnter your Call Back or Redirect URL and port\n[example: http://127.0.0.1:8080]: ")
 
-    configs = [API_SERVER, WWW_SERVER, AUTHORIZE_URL, TOKEN_URL, SAMPLE_CALL]
-
+    # Write changes to appconfig.conf
     make_change = user_yes_no_query('\nAre you sure you want to write these changes?')
     if make_change == True:
         inplace_change('default/appconfig.conf', 'API_SERVER =', "API_SERVER = %s" % API_SERVER)
         inplace_change('default/appconfig.conf', 'WWW_SERVER =', "WWW_SERVER = %s" % WWW_SERVER)
         inplace_change('default/appconfig.conf', 'AUTHORIZE_URL =', "AUTHORIZE_URL = %s" % AUTHORIZE_URL)
         inplace_change('default/appconfig.conf', 'TOKEN_URL =', "TOKEN_URL = %s" % TOKEN_URL)
-        inplace_change('default/appconfig.conf', 'SCOPES =', "SCOPES = (%s)" % SCOPES)
+        inplace_change('default/appconfig.conf', 'SCOPES =', "SCOPES = %s" % SCOPES)
         inplace_change('default/appconfig.conf', 'SAMPLE_CALL =', "SAMPLE_CALL = %s" % SAMPLE_CALL)
         inplace_change('default/appconfig.conf', 'C_KEY =', "C_KEY = %s" % C_KEY)
         inplace_change('default/appconfig.conf', 'C_SECRET =', "C_SECRET = %s" % C_SECRET)
@@ -106,6 +147,7 @@ else:
 
 run_generator = user_yes_no_query('\nDo you want to run the generator now?')
 
+# Run access_generator to get keys
 if run_generator == True:
     system('python bin/access_generator.py')
 else:
