@@ -36,10 +36,13 @@ Using your terminal, run `python setup.py` to begin the configuration. Setup wil
 Once you have answered these questions, the setup will prompt you to determine whether or not you want to write these changes to the `appconfig.conf` file. Type `y [enter]` to confirm the changes. Proceed to the next part of this installation.
 
 ### Getting API Tokens
-Setup will prompt you to run the `access_generator.py` script. If your configuration is correct, you should be able to run this without any problems. The access generator will contact the API using your settings, then return an access key and refresh token. These token will be stored in `$SPLUNK_HOME/etc/apps/<your_app_name>/bin/token_configs.txt` for future use in your scripts. As the framework runs, your new tokens will also be overwritten in this file. The `access_generator` does require some initial information, however.
-The `access_generator` will spawn a webbrowser that is pointed to your API. Once you have accepted the scope/permissions for the account, your API should return an access token. Copy this access token from the browser window, and paste this token back into the terminal when prompted. Once the code has been confirmed, it will run the `SAMPLE CALL` you created during the configuration steps. Review the response, and determine if your call worked properly (see note on sample call for more info). This completes the setup process. Now restart Splunk and everything should be kosher.
+Setup will prompt you to run the `access_generator.py` script. If your configuration is correct, you should be able to run this without any problems. The access generator will contact the API using your settings, then return an access key and refresh token. These token will be stored in `$SPLUNK_HOME/etc/apps/<your_app_name>/bin/lib/token_configs.txt` for future use in your scripts. As the framework runs, your new tokens will also be overwritten in this file. The `access_generator` does require some initial information, however.
 
-### Creating Scripts ###
+The `access_generator` will spawn a webbrowser that is pointed to your API. Once you have accepted the scope/permissions for the account, your API should return an access token. Copy this access token from the browser window, and paste this token back into the terminal when prompted. Once the code has been confirmed, it will run the `SAMPLE CALL` you created during the configuration steps. 
+
+Review the response, and determine if your call worked properly (see note on sample call for more info). This completes the setup process. Now restart Splunk and everything should be kosher.
+
+## Creating Scripts ##
 This section will attempt to guide you through the process of creating your first script. But I have to write it first.
 
 *TODO: Finish writing this README!*
