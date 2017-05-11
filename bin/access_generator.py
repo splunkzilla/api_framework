@@ -24,7 +24,7 @@ tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + CONFIG
 api = api_framework.APIFramework()
 
 # All information must be as on the API configuration page for the app you are connecting to.
-    # Load Settings
+# Load Settings
 parser.read(SPLUNK_HOME + '/etc/apps/' + APPNAME + '/local/' + PARSER_CONFIG)
 if parser.has_section('Authentication'):
     pass
@@ -40,7 +40,7 @@ except IOError:
     auth_url = api.get_authorization_uri()
     webbrowser.open(auth_url)
     cherrypy.quickstart(api)
-    # Set the access code that is part of the arguments of the callback URL FitBit redirects to.
+    # Set the access code that is part of the arguments of the callback URL the API redirects to.
     access_code = raw_input("Please enter code (from the URL you were redirected to): ")
     # Use the temporary access code to obtain a more permanent pair of tokens
     token = api.get_access_token(access_code)
