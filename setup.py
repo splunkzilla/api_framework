@@ -118,7 +118,7 @@ if config_api == True:
     WWW_SERVER = raw_input("\nEnter the name of the WWW server without the https://\n[example: www.myapp.com]: ")
     AUTHORIZE_URL = raw_input("\nEnter the name of the Authorization URL with slashes[/]\n[example: /oauth2/authorize]: ")
     TOKEN_URL = raw_input("\nEnter the name of the Token URL with slashes[/]\n[example: /oauth2/token]: ")
-    SCOPES = raw_input("\nEnter the name of the Available Scopes with comma between\n[example: 'profile','activity']: ")
+    SCOPES = raw_input("\nEnter the name of the Available Scopes with comma between\n[example: profile,activity]: ")
     SAMPLE_CALL = raw_input("\nEnter a sample API call for testing\n[example: /1/user/-/profile.json]: ")
     C_KEY = raw_input("\nEnter your Client Key\n[example: 12353465754]: ")
     C_SECRET = raw_input("\nEnter your Client Secret Key\n[example: 1sad46575433sdas23423]: ")
