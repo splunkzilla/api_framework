@@ -4,7 +4,8 @@ Created by Justin Boucher
 jboucher@splunk.com
 '''
 
-import sys, os, base64
+from os import environ
+import base64
 import datetime as dt
 import ConfigParser
 import cherrypy, threading
@@ -12,18 +13,10 @@ import requests, urllib
 import json
 
 # Setup Splunk Environment
-APPNAME = '<APPNAME>'
+APPNAME = 'test_app'
 CONFIG = 'appconfig.conf'
-SPLUNK_HOME = os.environ['SPLUNK_HOME']
-TOKEN_CONFIG = '/bin/user_settings.txt'
-
-# Dynamically load in any eggs in /etc/apps/$APPNAME$/bin
-EGG_DIR = SPLUNK_HOME + "/etc/apps/" + APPNAME + "/bin/"
-
-for filename in os.listdir(EGG_DIR):
-    if filename.endswith(".egg"):
-        sys.path.append(EGG_DIR + filename)
-
+SPLUNK_HOME = environ['SPLUNK_HOME']
+TOKEN_CONFIG = '/bin/token_settings.txt'
 
 tokenfile = SPLUNK_HOME + '/etc/apps/' + APPNAME + TOKEN_CONFIG
 
@@ -54,11 +47,8 @@ class APIFramework():
 
     # These settings should probably not be changed.
     API_SERVER = parser.get('AppServer', 'API_SERVER')
-    WWW_SERVER = parser.get('AppServer', 'WWW_SERVER')
-    AUTH_URL = parser.get('AppServer', 'AUTHORIZE_URL')
-    TOK_URL = parser.get('AppServer', 'TOKEN_URL')
-    AUTHORIZE_URL = 'https://%s%s' % (WWW_SERVER, AUTH_URL)
-    TOKEN_URL = 'https://%s%s' % (API_SERVER, TOK_URL)
+    AUTHORIZE_URL = parser.get('AppServer', 'AUTHORIZE_URL')
+    TOKEN_URL = parser.get('AppServer', 'TOKEN_URL')
 
     def get_authorization_uri(self):
 
@@ -150,7 +140,7 @@ class APIFramework():
             'Authorization': 'Bearer %s' % token['access_token']
         }
 
-        final_url = 'https://' + self.API_SERVER + api_call
+        final_url = self.API_SERVER + api_call
 
         resp = requests.get(final_url, headers=headers)
 

@@ -51,7 +51,7 @@ def get_filepaths(directory):
     it yields a 3-tuple (dirpath, dirnames, filenames).
 
     :param directory:
-    :return: file directory and paths in string
+    :return:
     '''
     file_paths = []  # List which will store all of the full filepaths.
 
@@ -114,10 +114,9 @@ for filename in paths:
 config_api = user_yes_no_query('\nDo you want to configure the API now?')
 
 if config_api == True:
-    API_SERVER =  raw_input("\nEnter the name of the API server without the https://\n[example: api.myapp.com]: ")
-    WWW_SERVER = raw_input("\nEnter the name of the WWW server without the https://\n[example: www.myapp.com]: ")
-    AUTHORIZE_URL = raw_input("\nEnter the name of the Authorization URL with slashes[/]\n[example: /oauth2/authorize]: ")
-    TOKEN_URL = raw_input("\nEnter the name of the Token URL with slashes[/]\n[example: /oauth2/token]: ")
+    API_SERVER =  raw_input("\nEnter the name of the API server without the https://\n[example: https://api.myapp.com]: ")
+    AUTHORIZE_URL = raw_input("\nEnter the name of the Authorization URL with slashes[/]\n[example: http://www.myapp.com/oauth2/authorize]: ")
+    TOKEN_URL = raw_input("\nEnter the name of the Token URL with slashes[/]\n[example: https://api.myapp.com/oauth2/token]: ")
     SCOPES = raw_input("\nEnter the name of the Available Scopes with comma between\n[example: profile,activity]: ")
     SAMPLE_CALL = raw_input("\nEnter a sample API call for testing\n[example: /1/user/-/profile.json]: ")
     C_KEY = raw_input("\nEnter your Client Key\n[example: 12353465754]: ")
@@ -128,7 +127,6 @@ if config_api == True:
     make_change = user_yes_no_query('\nAre you sure you want to write these changes?')
     if make_change == True:
         inplace_change('default/appconfig.conf', 'API_SERVER =', "API_SERVER = %s" % API_SERVER)
-        inplace_change('default/appconfig.conf', 'WWW_SERVER =', "WWW_SERVER = %s" % WWW_SERVER)
         inplace_change('default/appconfig.conf', 'AUTHORIZE_URL =', "AUTHORIZE_URL = %s" % AUTHORIZE_URL)
         inplace_change('default/appconfig.conf', 'TOKEN_URL =', "TOKEN_URL = %s" % TOKEN_URL)
         inplace_change('default/appconfig.conf', 'SCOPES =', "SCOPES = %s" % SCOPES)
@@ -140,7 +138,7 @@ if config_api == True:
         print '\nAll Complete!'
 
     else:
-        print '\nAll Complete!'
+        print '\nNo Changes Written to appconfig.conf!'
 
 else:
     print '\nAll Complete!'
