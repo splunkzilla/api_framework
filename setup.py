@@ -51,7 +51,7 @@ def get_filepaths(directory):
     it yields a 3-tuple (dirpath, dirnames, filenames).
 
     :param directory:
-    :return:
+    :return: file directory and paths in string
     '''
     file_paths = []  # List which will store all of the full filepaths.
 
